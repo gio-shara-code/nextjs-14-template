@@ -43,9 +43,12 @@ export const NavigationBar = () => {
             <div className={'flex items-center gap-x-5'}>
                 {data.map((link) => (
                     <Link
-                        className={cn({
-                            underline: pathname === link.href,
-                        })}
+                        className={cn(
+                            'hover:text-black/20 dark:hover:text-white/20',
+                            {
+                                underline: pathname === link.href,
+                            }
+                        )}
                         href={link.href}
                         key={link.id}
                     >
