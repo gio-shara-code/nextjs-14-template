@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { ThemeButtonLoader } from '~/app/_/ThemeButton'
 import Link from 'next/link'
 import { LucideImage } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { cn } from '~/lib/utils'
+import { useWindowScroll } from '@uidotdev/usehooks'
+import { animated, easings, useSpring } from '@react-spring/web'
 
 const HydratedButton = dynamic(() => import('../../app/_/ThemeButton'), {
     ssr: false,
@@ -31,8 +33,65 @@ const data = [
 
 export const NavigationBar = () => {
     const pathname = usePathname()
+    const [showNav, setShowNav] = useState(true)
+    const [prevScrollPos, setPrevScrollPos] = useState(0)
+    const [{ y }] = useWindowScroll()
+
+    const glassEffect = (y || 0) > 50
+
+    const {} = useSpring({})
+    console.log('y', y)
+    const { ...styles } = useSpring({
+        from: {
+            transform: 'translateY(-100%)',
+            backdropFilter: 'blur(0)',
+            WebkitBackdropFilter: 'blur(0)',
+            borderBottom: '0px solid rgb(40, 40, 59)',
+            background: 'transparent',
+        },
+        to: {
+            transform: showNav ? 'translateY(0)' : 'translateY(-100%)',
+            backdropFilter: glassEffect ? 'blur(8px)' : 'blur(0)',
+            WebkitBackdropFilter: glassEffect ? 'blur(8px)' : 'blur(0)',
+            borderBottom: glassEffect
+                ? '1px solid rgb(40, 40, 59)'
+                : '0px solid rgb(40, 40, 59)',
+            background: glassEffect ? 'rgba(18, 18, 29, 0.3)' : 'transparent',
+        },
+        config: {
+            duration: 300,
+            // mass: 3,
+            // easing: (t) => easings.linear(t),
+        },
+    })
+
+    useEffect(() => {
+        // NOTE this is a option two behaviour
+        // if (y! && y > 50) {
+        //     setShowNav(false)
+        // } else {
+        //     setShowNav(true)
+        // }
+        const currentScrollPos = y || 0
+        const visible =
+            (prevScrollPos > currentScrollPos && currentScrollPos > 150) ||
+            currentScrollPos <= 100
+
+        setShowNav(visible)
+        setPrevScrollPos(currentScrollPos)
+    }, [y])
+
     return (
-        <nav className={'container flex items-center justify-between py-4'}>
+        <animated.nav
+            style={{
+                ...styles,
+                transition: 'transform 250ms',
+                willChange: 'all',
+            }}
+            className={cn(
+                'fixed top-0 right-0 left-0 flex items-center justify-between py-4 px-10 z-50'
+            )}
+        >
             <div className={'flex items-center gap-x-3'}>
                 <LucideImage width={40} height={40} />
                 <Link className={'hidden sm:block text-xl'} href={'/'}>
@@ -58,6 +117,6 @@ export const NavigationBar = () => {
             </div>
 
             <HydratedButton />
-        </nav>
+        </animated.nav>
     )
 }
