@@ -59,7 +59,7 @@ export const NavigationBar = () => {
             background: glassEffect ? 'rgba(18, 18, 29, 0.3)' : 'transparent',
         },
         config: {
-            duration: 300,
+            duration: 50,
             // mass: 3,
             // easing: (t) => easings.linear(t),
         },
@@ -88,35 +88,37 @@ export const NavigationBar = () => {
                 transition: 'transform 250ms',
                 willChange: 'all',
             }}
-            className={cn(
-                'fixed top-0 right-0 left-0 flex items-center justify-between py-4 px-10 z-50'
-            )}
+            className={cn('fixed top-0 right-0 left-0 z-50')}
         >
-            <div className={'flex items-center gap-x-3'}>
-                <LucideImage width={40} height={40} />
-                <Link className={'hidden sm:block text-xl'} href={'/'}>
-                    Logo
-                </Link>
-            </div>
-
-            <div className={'flex items-center gap-x-5'}>
-                {data.map((link) => (
-                    <Link
-                        className={cn(
-                            'hover:text-black/20 dark:hover:text-white/20',
-                            {
-                                underline: pathname === link.href,
-                            }
-                        )}
-                        href={link.href}
-                        key={link.id}
-                    >
-                        {link.name}
+            <div
+                className={'container flex items-center justify-between  py-4'}
+            >
+                <div className={'flex items-center gap-x-3'}>
+                    <LucideImage width={40} height={40} />
+                    <Link className={'hidden sm:block text-xl'} href={'/'}>
+                        Logo
                     </Link>
-                ))}
-            </div>
+                </div>
 
-            <HydratedButton />
+                <div className={'flex items-center gap-x-5'}>
+                    {data.map((link) => (
+                        <Link
+                            className={cn(
+                                'hover:text-black/20 dark:hover:text-white/20',
+                                {
+                                    underline: pathname === link.href,
+                                }
+                            )}
+                            href={link.href}
+                            key={link.id}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+                </div>
+
+                <HydratedButton />
+            </div>
         </animated.nav>
     )
 }
