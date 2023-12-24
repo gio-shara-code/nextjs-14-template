@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic'
 import { ThemeButtonLoader } from '~/app/_/ThemeButton'
 import Link from 'next/link'
 import { LucideImage } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { cn } from '~/lib/utils'
 
 const HydratedButton = dynamic(() => import('../../app/_/ThemeButton'), {
     ssr: false,
@@ -28,6 +30,7 @@ const data = [
 ]
 
 export const NavigationBar = () => {
+    const pathname = usePathname()
     return (
         <nav className={'container flex items-center justify-between py-4'}>
             <div className={'flex items-center gap-x-3'}>
@@ -39,7 +42,13 @@ export const NavigationBar = () => {
 
             <div className={'flex items-center gap-x-5'}>
                 {data.map((link) => (
-                    <Link href={link.href} key={link.id}>
+                    <Link
+                        className={cn({
+                            underline: pathname === link.href,
+                        })}
+                        href={link.href}
+                        key={link.id}
+                    >
                         {link.name}
                     </Link>
                 ))}
