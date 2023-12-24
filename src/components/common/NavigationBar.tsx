@@ -2,6 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { ThemeButtonLoader } from '~/app/_/ThemeButton'
 import Link from 'next/link'
+import { LucideImage } from 'lucide-react'
 
 const HydratedButton = dynamic(() => import('../../app/_/ThemeButton'), {
     ssr: false,
@@ -28,9 +29,15 @@ const data = [
 
 export const NavigationBar = () => {
     return (
-        <nav className={'container flex justify-between py-4'}>
-            {/*Iterate through a links array and display them dinaymically*/}
+        <nav className={'container flex items-center justify-between py-4'}>
             <div className={'flex items-center gap-x-3'}>
+                <LucideImage width={40} height={40} />
+                <Link className={'hidden sm:block text-xl'} href={'/'}>
+                    Logo
+                </Link>
+            </div>
+
+            <div className={'flex items-center gap-x-5'}>
                 {data.map((link) => (
                     <Link href={link.href} key={link.id}>
                         {link.name}
