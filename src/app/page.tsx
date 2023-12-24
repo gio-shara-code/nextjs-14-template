@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { env } from '~/env'
+import { cn } from '~/lib/utils'
 
 export default function Home() {
     const [greeting, setGreeting] = React.useState('')
@@ -10,11 +11,7 @@ export default function Home() {
             .then((data) => setGreeting(data.greeting))
     }, [])
     return (
-        <main
-            className={
-                'container h-screen flex flex-col items-center justify-center'
-            }
-        >
+        <main className={'page-base col-center'}>
             <h1>{greeting}</h1>
             <h4>
                 By the way, this is a client-side env:{' '}

@@ -123,3 +123,12 @@
         }
     }
 }
+
+@layer components {
+    .page-base {
+        @apply container pt-24;
+    }
+    .col-center {
+        @apply flex flex-col items-center justify-center;
+    }
+}

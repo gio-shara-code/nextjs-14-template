@@ -8,7 +8,7 @@ import { useToast } from '~/components/ui/use-toast'
 export default function UIPage() {
     const { toast } = useToast()
     return (
-        <main className={'container space-y-10'}>
+        <main className={'page-base'}>
             <h1>UI Components</h1>
             <div className={'space-y-5'}>
                 <h1>Buttons</h1>
