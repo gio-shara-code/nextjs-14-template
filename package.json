@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "make fetch-openapi && openapi-generator-cli generate -i fetched-openapi-spec.json -g typescript-axios -o ./src/api"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
@@ -14,6 +15,7 @@
     "@react-spring/web": "^9.7.3",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@uidotdev/usehooks": "^2.4.1",
+    "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.300.0",
@@ -27,6 +29,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

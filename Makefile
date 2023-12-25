@@ -14,3 +14,7 @@ env:
 
 env-pull:
 	@vercel env pull .env.pulled.local
+
+
+fetch-openapi:
+	@curl -L http://localhost:3000/api-json > fetched-openapi-spec.json
